@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './mIcons.dart';
+import './vIcon.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,8 +36,20 @@ class MaterialIconsViewer extends StatelessWidget {
                 crossAxisCount: columnCount,
               ),
               itemBuilder: (context, index) {
-                return Card(
-                  child: Icon(icons[index].iconData, size: columnWidth * 0.8),
+                MIcon icon = icons[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VIcon(icon: icon),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
+                  child: Card(
+                    child: Icon(icon.iconData, size: columnWidth * 0.8),
+                  ),
                 );
               },
             );
