@@ -33,10 +33,7 @@ class MaterialIconsViewer extends StatelessWidget {
           crossAxisCount: 4,
         ),
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black45),
-            ),
+          return Card(
             child: Icon(icons[index], size: 50),
           );
         },
