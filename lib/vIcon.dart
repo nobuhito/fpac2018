@@ -14,14 +14,21 @@ class VIcon extends StatelessWidget {
         title: Text(this.icon.key),
       ),
       body: Center(
-        child: Hero(
-          tag: this.icon.key,
-          child: Icon(
-            this.icon.iconData,
-            size: 0.8 *
-                ((deviceSize.width < deviceSize.height)
-                    ? deviceSize.width
-                    : deviceSize.height),
+        child: GestureDetector(
+          onVerticalDragUpdate: (detail) {
+            if (detail.primaryDelta > 5) {
+              Navigator.pop(context);
+            }
+          },
+          child: Hero(
+            tag: this.icon.key,
+            child: Icon(
+              this.icon.iconData,
+              size: 0.8 *
+                  ((deviceSize.width < deviceSize.height)
+                      ? deviceSize.width
+                      : deviceSize.height),
+            ),
           ),
         ),
       ),
