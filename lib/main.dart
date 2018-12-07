@@ -48,7 +48,10 @@ class MaterialIconsViewer extends StatelessWidget {
                     );
                   },
                   child: Card(
-                    child: Icon(icon.iconData, size: columnWidth * 0.8),
+                    child: Hero(
+                      tag: icon.key,
+                      child: Icon(icon.iconData, size: columnWidth * 0.8),
+                    ),
                   ),
                 );
               },
