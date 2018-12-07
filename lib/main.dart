@@ -27,16 +27,18 @@ class MaterialIconsViewer extends StatelessWidget {
       appBar: AppBar(
         title: Text("Material Icons Viewer"),
       ),
-      body: GridView.builder(
-        itemCount: icons.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+      body: SafeArea(
+        child: GridView.builder(
+          itemCount: icons.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+          ),
+          itemBuilder: (context, index) {
+            return Card(
+              child: Icon(icons[index], size: 50),
+            );
+          },
         ),
-        itemBuilder: (context, index) {
-          return Card(
-            child: Icon(icons[index], size: 50),
-          );
-        },
       ),
     );
   }
