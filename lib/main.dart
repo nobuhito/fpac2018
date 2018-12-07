@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
 class MaterialIconsViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double columnWidth = 64;
+    int columnCount = deviceSize.width ~/ columnWidth;
     return Scaffold(
       appBar: AppBar(
         title: Text("Material Icons Viewer"),
@@ -29,11 +32,11 @@ class MaterialIconsViewer extends StatelessWidget {
             return GridView.builder(
               itemCount: icons.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+                crossAxisCount: columnCount,
               ),
               itemBuilder: (context, index) {
                 return Card(
-                  child: Icon(icons[index].iconData, size: 50),
+                  child: Icon(icons[index].iconData, size: columnWidth * 0.8),
                 );
               },
             );
