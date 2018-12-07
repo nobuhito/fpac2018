@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import './mIcons.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,28 +19,13 @@ class MaterialIconsViewer extends StatelessWidget {
       ),
       body: SafeArea(
         child: FutureBuilder(
-          future: http.get(
-              "https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/src/material/icons.dart"),
+          future: MIcons().fetchIcons(),
           builder: (context, future) {
             if (!future.hasData) {
               return Center(child: CircularProgressIndicator());
             }
 
-            RegExp regexp = RegExp(
-              r'>(.*?)<\/i>[\s\S]*?IconData\(0x(.*?)\,',
-              multiLine: true,
-            );
-
-            List<Map<String, dynamic>> icons = [];
-            regexp.allMatches(future.data.body).forEach((match) {
-              String key = match.group(1);
-              String codepoint = match.group(2);
-              icons.add({
-                "key": key,
-                "codepoint": int.tryParse(codepoint, radix: 16),
-              });
-            });
-
+            List<MIcon> icons = future.data;
             return GridView.builder(
               itemCount: icons.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -48,13 +33,7 @@ class MaterialIconsViewer extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return Card(
-                  child: Icon(
-                    IconData(
-                      icons[index]["codepoint"],
-                      fontFamily: "MaterialIcons",
-                    ),
-                    size: 50,
-                  ),
+                  child: Icon(icons[index].iconData, size: 50),
                 );
               },
             );
